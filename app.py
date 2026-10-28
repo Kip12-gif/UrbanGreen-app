@@ -1,4 +1,4 @@
-﻿import json
+import json
 import random
 from datetime import datetime
 import folium
@@ -14,19 +14,23 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 🎨 DEEP FOREST CANOPY THEME (CSS)
+# 🎨 BOTANICAL LIGHT PARCHMENT THEME (CRYSTAL CLEAR & PROFESSIONAL CSS)
 # ==============================================================================
 custom_css = """
 <style>
-/* Rich Deep Forest Canopy Gradient Background */
+/* Clean Light Botanical Background with Subtle Grid */
 .stApp {
-    background: radial-gradient(circle at top right, #163824 0%, #0D2217 60%, #07130E 100%);
-    color: #ECFDF5 !important;
+    background-color: #F2F6F0;
+    background-image: radial-gradient(#D5E1CD 0.75px, transparent 0.75px), 
+                      radial-gradient(#D5E1CD 0.75px, #F2F6F0 0.75px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    color: #1A2E22 !important;
 }
 
-/* Crisp Mint & Emerald Typography */
+/* High-Contrast Dark Forest Typography */
 html, body, [class*="css"], .stMarkdown, p, span, label, h1, h2, h3, h4, h5, h6 {
-    color: #ECFDF5 !important;
+    color: #1A2E22 !important;
     font-family: 'Inter', -apple-system, sans-serif;
 }
 
@@ -34,51 +38,46 @@ html, body, [class*="css"], .stMarkdown, p, span, label, h1, h2, h3, h4, h5, h6 
 h1 {
     font-weight: 800;
     letter-spacing: -1px;
-    background: linear-gradient(90deg, #34D399, #10B981, #ECFDF5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+    color: #1B4332 !important;
+    border-bottom: 2px solid #B7C4B0;
     padding-bottom: 10px;
 }
 h2, h3 {
-    color: #34D399 !important;
+    color: #2D6A4F !important;
     font-weight: 700;
 }
 
-/* Glassmorphism Canopy Cards */
+/* Crisp White Paper Cards */
 div[data-testid="stBlock"] {
-    background: rgba(18, 38, 27, 0.8) !important;
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    background-color: #FFFFFF !important;
+    border-radius: 8px;
+    border: 1px solid #C4D3BD;
+    box-shadow: 0 4px 16px rgba(26, 46, 34, 0.06);
     padding: 1.4rem;
 }
 
-/* Emerald Green Glowing Buttons */
+/* Forest Green Accent Buttons */
 div.stButton > button, div.stDownloadButton > button {
-    background: linear-gradient(135deg, #059669 0%, #10B981 100%) !important;
-    color: #07130E !important;
-    border-radius: 8px !important;
+    background-color: #2D6A4F !important;
+    color: #FFFFFF !important;
+    border-radius: 6px !important;
     border: none !important;
     font-weight: 700 !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(45, 106, 79, 0.2);
+    transition: all 0.2s ease;
 }
-div.stButton > button:hover, div.stDownloadButton > button:hover {
-    background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+div.stButton > button:hover {
+    background-color: #1B4332 !important;
 }
 
 /* Metric Cards */
 [data-testid="stMetricValue"] {
-    color: #34D399 !important;
+    color: #2D6A4F !important;
     font-weight: 800 !important;
     font-size: 2rem !important;
 }
 [data-testid="stMetricLabel"] {
-    color: #A7F3D0 !important;
+    color: #52796F !important;
     font-weight: 600;
 }
 
@@ -88,24 +87,24 @@ div.stButton > button:hover, div.stDownloadButton > button:hover {
     background-color: transparent;
 }
 .stTabs [data-baseweb="tab"] {
-    background-color: rgba(18, 38, 27, 0.7) !important;
-    border-radius: 8px 8px 0px 0px;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    color: #A7F3D0 !important;
+    background-color: #E2ECE0 !important;
+    border-radius: 6px 6px 0px 0px;
+    border: 1px solid #C4D3BD;
+    color: #2D6A4F !important;
     padding: 10px 18px;
     font-weight: 600;
 }
 .stTabs [aria-selected="true"] {
-    background-color: #10B981 !important;
-    color: #07130E !important;
+    background-color: #2D6A4F !important;
+    color: #FFFFFF !important;
     font-weight: 700 !important;
 }
 
 /* Input Fields styling */
 input, select, textarea {
-    background-color: #0D2217 !important;
-    color: #ECFDF5 !important;
-    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    background-color: #FFFFFF !important;
+    color: #1A2E22 !important;
+    border: 1px solid #B7C4B0 !important;
     border-radius: 6px !important;
 }
 </style>
@@ -176,7 +175,7 @@ if "clicked_lon" not in st.session_state:
 # ==============================================================================
 st.title("🌿 UrbanGreen")
 st.markdown(
-    "##### *A spatial neighborhood canopy registry & carbon offset estimator.*"
+    "### *Neighborhood canopy registry & urban carbon offset estimator.*"
 )
 
 df = pd.DataFrame(st.session_state.tree_data)
@@ -204,16 +203,16 @@ tab_map, tab_list, tab_add, tab_analytics = st.tabs([
 with tab_map:
   st.markdown("### Interactive Canopy Atlas")
   st.caption(
-      "Click anywhere on the map to capture coordinates for logging a new tree!"
+      "💡 **Pro-Tip:** Click anywhere on the map to capture coordinates for"
+      " logging a new tree!"
   )
 
   m = folium.Map(
       location=[20.0, 0.0],
       zoom_start=2,
-      tiles="CartoDB dark_matter",
-      name="Dark Mode Map",
+      tiles="OpenStreetMap",
+      name="OpenStreetMap",
   )
-  folium.TileLayer("OpenStreetMap", name="OpenStreetMap").add_to(m)
   folium.TileLayer(
       tiles="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
       attr="Google Satellite",
@@ -223,14 +222,14 @@ with tab_map:
 
   for tree in st.session_state.tree_data:
     popup_html = f"""
-        <div style="font-family: sans-serif; width: 210px; color: #07130E;">
-            <h4 style="margin:0; color:#059669;">{tree['species']}</h4>
+        <div style="font-family: sans-serif; width: 210px; color: #1A2E22;">
+            <h4 style="margin:0; color:#2D6A4F;">{tree['species']}</h4>
             <p style="margin:4px 0; font-size:12px;">📍 <b>{tree['location']}</b></p>
             <p style="margin:4px 0; font-size:12px;">🌳 Age: {tree['age_years']} years</p>
             <p style="margin:4px 0; font-size:12px;">🍃 Est CO₂: {tree['est_co2_kg_yr']} kg/yr</p>
             <p style="margin:4px 0; font-size:12px;">🏷️ Status: {tree['health']}</p>
             <hr style="margin:4px 0;">
-            <p style="font-size:11px; color:#444;">{tree['notes']}</p>
+            <p style="font-size:11px; color:#555;">{tree['notes']}</p>
         </div>
         """
     folium.Marker(
@@ -377,11 +376,11 @@ with tab_analytics:
         names="species",
         title="Canopy Distribution by Species",
         hole=0.4,
-        color_discrete_sequence=["#059669", "#10B981", "#34D399", "#6EE7B7"],
+        color_discrete_sequence=["#2D6A4F", "#52796F", "#84A98C", "#CAD2C5"],
     )
     fig_species.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, sans-serif", color="#ECFDF5"),
+        font=dict(family="Inter, sans-serif", color="#1A2E22"),
     )
     st.plotly_chart(fig_species, use_container_width=True)
 
@@ -392,11 +391,11 @@ with tab_analytics:
         y="est_co2_kg_yr",
         title="Est. Annual CO₂ Offset (kg/year) per Species",
         color="health",
-        color_discrete_sequence=["#10B981", "#34D399", "#A7F3D0"],
+        color_discrete_sequence=["#2D6A4F", "#52796F", "#84A98C"],
     )
     fig_co2.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, sans-serif", color="#ECFDF5"),
+        font=dict(family="Inter, sans-serif", color="#1A2E22"),
     )
     st.plotly_chart(fig_co2, use_container_width=True)
